@@ -1061,3 +1061,243 @@ p { margin: 0; }
 }
 .milestone-mini .date { font-family: var(--font-mono); font-size: 12px; color: var(--accent); font-weight: 600; }
 .milestone-mini .task { font-size: 12.5px; color: var(--ink); line-height: 1.4; }
+
+/* =================================================================
+   2026 UI/UX UPGRADE
+   ================================================================= */
+
+/* --- Spring easing + elevated shadows --- */
+:root {
+  --spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:  cubic-bezier(0.2, 0.9, 0.3, 1);
+  --shadow-card: 0 1px 3px rgba(74,50,20,0.07), 0 4px 14px rgba(74,50,20,0.06);
+  --shadow-hi:   0 4px 10px rgba(74,50,20,0.10), 0 18px 40px rgba(74,50,20,0.12);
+}
+
+/* --- Touch feedback: spring press on every interactive surface --- */
+.m-tab, .m-btn, .check-tap, .kp-mobile-item,
+.stat-tile, .sched-row, .week-tab, .flash-eval,
+.more-row, .err-mobile-card, .milestone-mini {
+  transition: transform 200ms var(--spring);
+}
+.m-tab:active         { transform: scale(0.94); }
+.m-btn:active:not(.ghost) { transform: scale(0.96); }
+.check-tap:active     { transform: scale(0.97); }
+.kp-mobile-item:active { transform: scale(0.975); }
+.stat-tile:active     { transform: scale(0.96); }
+.sched-row:active     { transform: scale(0.985); }
+.week-tab:active      { transform: scale(0.94); }
+.flash-eval:active    { transform: scale(0.93); }
+.more-row:active      { transform: scale(0.985); }
+.err-mobile-card:active { transform: scale(0.985); }
+.milestone-mini:active { transform: scale(0.975); }
+
+/* --- Tab bar: pill indicator (iOS 18 / visionOS style) --- */
+.m-tabbar {
+  background: rgba(251, 246, 233, 0.92);
+  backdrop-filter: blur(26px) saturate(165%);
+  -webkit-backdrop-filter: blur(26px) saturate(165%);
+  border-top: 0.5px solid rgba(184, 85, 58, 0.1);
+}
+.m-tab { transition: color 150ms ease, transform 200ms var(--spring); }
+.m-tab svg { transition: transform 220ms var(--spring); }
+.m-tab.active svg { transform: scale(1.1) translateY(-1px); }
+.m-tab.active::before {
+  /* Replace top line with pill background */
+  width: auto;
+  height: auto;
+  top: 4px;
+  bottom: 4px;
+  left: 10%;
+  right: 10%;
+  border-radius: 14px;
+  transform: none;
+  background: rgba(184, 85, 58, 0.11);
+}
+
+/* --- Screen entry animation --- */
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(9px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.m-screen { animation: screenIn 210ms var(--ease-out) both; }
+
+/* --- Top bar: deeper glass --- */
+.m-topbar {
+  background: linear-gradient(
+    180deg,
+    rgba(245,239,224,0.97) 0%,
+    rgba(245,239,224,0.78) 68%,
+    rgba(245,239,224,0) 100%
+  );
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+}
+
+/* --- D-day: bigger number + ambient orb --- */
+.dday-big {
+  background: linear-gradient(135deg, #fdf0d4 0%, #f5e2b4 50%, #eedba8 100%);
+  box-shadow: 0 4px 22px rgba(176,136,56,0.22), 0 1px 3px rgba(176,136,56,0.1);
+  overflow: hidden;
+}
+.dday-big::before {
+  content: "";
+  position: absolute;
+  left: -40px; top: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(184,85,58,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+.dday-big .num {
+  font-size: 72px;
+  letter-spacing: -0.04em;
+  text-shadow: 0 2px 10px rgba(184,85,58,0.18);
+}
+
+/* --- Progress bar: shimmer animation --- */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.m-progress .fill {
+  background: linear-gradient(90deg,
+    var(--accent-soft) 0%,
+    var(--accent) 35%,
+    rgba(255,255,255,0.28) 50%,
+    var(--accent) 65%,
+    var(--accent-soft) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3.5s ease-in-out infinite;
+}
+.m-progress.moss .fill {
+  background: linear-gradient(90deg,
+    #8fa66a 0%,
+    var(--moss) 35%,
+    rgba(255,255,255,0.22) 50%,
+    var(--moss) 65%,
+    #8fa66a 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3.5s ease-in-out infinite;
+}
+
+/* --- Stat tiles: richer visual --- */
+.stat-tiles { gap: 12px; }
+.stat-tile {
+  box-shadow: var(--shadow-card);
+  padding: 14px 16px;
+  border-radius: var(--radius);
+}
+.stat-tile .val {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  margin: 8px 0;
+}
+.stat-tile .lbl { letter-spacing: 0.12em; }
+
+/* --- Today hero: polished --- */
+.today-hero {
+  box-shadow: 0 2px 14px rgba(176,136,56,0.12);
+  border-color: rgba(176,136,56,0.28);
+}
+.today-hero .topic { font-size: 20px; }
+
+/* --- Check box: pop animation on check --- */
+@keyframes checkPop {
+  0%   { transform: scale(0.75); }
+  55%  { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+.check-tap.checked .check-box {
+  animation: checkPop 220ms var(--spring);
+}
+.kp-mobile-item.checked .check-box {
+  animation: checkPop 220ms var(--spring);
+}
+
+/* --- Flash card: bigger question text, polished face --- */
+.flash-mobile-face { border-radius: 22px; }
+.flash-mobile-face .q { font-size: 26px; }
+.flash-eval { border-radius: var(--radius); }
+
+/* --- Week tabs: pill style + shadow on active --- */
+.week-tab { border-radius: 20px; font-size: 12.5px; }
+.week-tab.active { box-shadow: 0 2px 8px rgba(184,85,58,0.28); }
+
+/* --- Section headers: stronger hierarchy --- */
+.m-section-head h2 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* --- More screen icon-bg: stronger depth --- */
+.more-row .icon-bg {
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+}
+
+/* --- Sheet: spring entrance --- */
+@keyframes slideUpSpring {
+  from { transform: translateY(100%); opacity: 0.85; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.sheet {
+  animation: slideUpSpring 340ms cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 22px 22px 0 0;
+}
+
+/* --- Empty state --- */
+.empty { font-style: normal; font-size: 14px; color: var(--ink-4); }
+
+/* --- m-card: needed for streak absolute positioning --- */
+.m-card { position: relative; }
+
+/* --- Streak chip component --- */
+.streak-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px 6px 10px;
+  background: linear-gradient(135deg,
+    rgba(184,85,58,0.09) 0%,
+    rgba(176,136,56,0.11) 100%
+  );
+  border: 1px solid rgba(184,85,58,0.22);
+  border-radius: 999px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.streak-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 7px rgba(184,85,58,0.55);
+  animation: dotPulse 2.2s ease-in-out infinite;
+  flex: 0 0 8px;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.65; transform: scale(0.82); }
+}
+.streak-num {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.streak-sub {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+/* --- Cards: slightly elevated shadow --- */
+.m-card { box-shadow: var(--shadow-card); }
+
+/* --- Error cards: consistent press height --- */
+.err-mobile-card { cursor: default; }
+
+/* --- h4 section labels inside today: tighter spacing --- */
+h4 { font-family: var(--font-sans); }

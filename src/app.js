@@ -183,6 +183,24 @@ function ScreenToday({
   const dday = daysUntilExam(today);
   const totalDays = MD.SCHEDULE.length;
   const passedDays = MD.SCHEDULE.filter(s => compareMMDD(s.date, today) < 0).length;
+  const streak = useMemo(() => {
+    let count = 0;
+    let d = today;
+    while (true) {
+      const c = checks[d];
+      if (!c || !c.some(Boolean)) break;
+      count++;
+      const [mo, dy] = d.split('-').map(Number);
+      const dt = new Date(Date.UTC(2026, mo - 1, dy));
+      dt.setUTCDate(dt.getUTCDate() - 1);
+      if (dt.getUTCFullYear() !== 2026) break;
+      const nm = String(dt.getUTCMonth() + 1).padStart(2, '0');
+      const nd = String(dt.getUTCDate()).padStart(2, '0');
+      d = `${nm}-${nd}`;
+      if (d < '05-22') break;
+    }
+    return count;
+  }, [checks, today]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "dday-big"
   }, /*#__PURE__*/React.createElement("span", {
@@ -191,7 +209,15 @@ function ScreenToday({
     className: "meta"
   }, "\uC2DC\uD5D8\uC77C", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", {
     className: "num"
-  }, "2026.07.11"), " (\uD1A0)")), todayItem ? /*#__PURE__*/React.createElement("div", {
+  }, "2026.07.11"), " (\uD1A0)")), streak >= 2 && /*#__PURE__*/React.createElement("div", {
+    className: "streak-chip"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "streak-dot"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "streak-num"
+  }, streak, "\uC77C \uC5F0\uC18D"), /*#__PURE__*/React.createElement("span", {
+    className: "streak-sub"
+  }, "\uD559\uC2B5 \uC911")), todayItem ? /*#__PURE__*/React.createElement("div", {
     className: "today-hero"
   }, /*#__PURE__*/React.createElement("div", {
     className: "date"

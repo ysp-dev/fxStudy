@@ -110,6 +110,25 @@ function ScreenToday({ today, checks, setChecks, kpDone, kpTotal, flashKnown, fl
   const totalDays = MD.SCHEDULE.length;
   const passedDays = MD.SCHEDULE.filter(s => compareMMDD(s.date, today) < 0).length;
 
+  const streak = useMemo(() => {
+    let count = 0;
+    let d = today;
+    while (true) {
+      const c = checks[d];
+      if (!c || !c.some(Boolean)) break;
+      count++;
+      const [mo, dy] = d.split('-').map(Number);
+      const dt = new Date(Date.UTC(2026, mo - 1, dy));
+      dt.setUTCDate(dt.getUTCDate() - 1);
+      if (dt.getUTCFullYear() !== 2026) break;
+      const nm = String(dt.getUTCMonth() + 1).padStart(2, '0');
+      const nd = String(dt.getUTCDate()).padStart(2, '0');
+      d = `${nm}-${nd}`;
+      if (d < '05-22') break;
+    }
+    return count;
+  }, [checks, today]);
+
   return (
     <>
       {/* D-day big block */}
@@ -120,6 +139,14 @@ function ScreenToday({ today, checks, setChecks, kpDone, kpTotal, flashKnown, fl
           <strong className="num">2026.07.11</strong> (토)
         </span>
       </div>
+
+      {streak >= 2 && (
+        <div className="streak-chip">
+          <div className="streak-dot" />
+          <span className="streak-num">{streak}일 연속</span>
+          <span className="streak-sub">학습 중</span>
+        </div>
+      )}
 
       {/* Today task */}
       {todayItem ? (
