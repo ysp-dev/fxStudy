@@ -780,7 +780,7 @@ function ScreenErrors({
     ...e,
     id: 'seed-' + i,
     date: '예시'
-  })) : errors.filter(e => filterSubj === 'all' || e.subj === filterSubj);
+  })).filter(e => filterSubj === 'all' || e.subj === filterSubj) : errors.filter(e => filterSubj === 'all' || e.subj === filterSubj);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',

@@ -514,7 +514,7 @@ function ScreenErrors({ errors, setErrors, repeatChecks, setRepeatChecks }) {
 
   const showSeed = errors.length === 0;
   const displayErrors = showSeed
-    ? MD.ERROR_EXAMPLES.map((e, i) => ({ ...e, id: 'seed-' + i, date: '예시' }))
+    ? MD.ERROR_EXAMPLES.map((e, i) => ({ ...e, id: 'seed-' + i, date: '예시' })).filter(e => filterSubj === 'all' || e.subj === filterSubj)
     : errors.filter(e => filterSubj === 'all' || e.subj === filterSubj);
 
   return (
