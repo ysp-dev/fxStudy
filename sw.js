@@ -1,13 +1,14 @@
 const CACHE = 'fx-v1';
+const BASE = self.registration.scope;
 const LOCAL_ASSETS = [
-  '/fxStudy/',
-  '/fxStudy/index.html',
-  '/fxStudy/src/style.css',
-  '/fxStudy/src/data.js',
-  '/fxStudy/src/app.jsx',
-  '/fxStudy/manifest.json',
-  '/fxStudy/icons/icon-192.png',
-  '/fxStudy/icons/icon-512.png',
+  BASE,
+  BASE + 'index.html',
+  BASE + 'src/style.css',
+  BASE + 'src/data.js',
+  BASE + 'src/app.jsx',
+  BASE + 'manifest.json',
+  BASE + 'icons/icon-192.png',
+  BASE + 'icons/icon-512.png',
 ];
 
 self.addEventListener('install', e => {

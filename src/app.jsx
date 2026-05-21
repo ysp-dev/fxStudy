@@ -1098,8 +1098,12 @@ function MobileApp() {
   const [repeatChecks, setRepeatChecks] = useStored('fx:repeat', {});
   const [scores, setScores] = useStored('fx:scores', {});
 
-  // Today: app uses 2026-05-22 as canonical "today" (since user mentioned May 22)
-  const today = '05-22';
+  const today = (() => {
+    const d = new Date();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${m}-${day}`;
+  })();
   const dday = daysUntilExam(today);
 
   // Stats for tabbar badges
