@@ -94,7 +94,7 @@ function MemoTbl({ data }) {
 /* =========================================================
    TODAY
    ========================================================= */
-function ScreenToday({ today, checks, setChecks, kpDone, kpTotal, flashKnown, flashTotal, errorCount, gotoTab }) {
+function ScreenToday({ today, checks, setChecks, kpDone, kpTotal, flashKnown, flashTotal, errorCount, gotoTab, gotoSub }) {
   const todayItem = MD.SCHEDULE.find(s => s.date === today);
   const next3 = MD.SCHEDULE.filter(s => compareMMDD(s.date, today) > 0).slice(0, 3);
   const TODAY_CHECKS = ['오늘 범위 완료', '문제풀이 완료', '오답노트 작성', '암기표 1회독'];
@@ -163,7 +163,7 @@ function ScreenToday({ today, checks, setChecks, kpDone, kpTotal, flashKnown, fl
           <Progress value={flashKnown} max={flashTotal} moss />
           <div style={{ fontSize:11, color:'var(--ink-3)', marginTop:6 }}>외움</div>
         </button>
-        <button className="stat-tile" onClick={() => gotoTab('more')}>
+        <button className="stat-tile" onClick={() => gotoSub('keypoints')}>
           <div className="lbl">빈출포인트</div>
           <div className="val">{kpDone}<small>/{kpTotal}</small></div>
           <Progress value={kpDone} max={kpTotal} />
@@ -1151,7 +1151,7 @@ function MobileApp() {
   if (view.tab === 'today') content = <ScreenToday today={today} checks={checks} setChecks={setChecks}
     kpDone={kpStats.done} kpTotal={kpStats.total}
     flashKnown={flashStats.known} flashTotal={flashStats.total}
-    errorCount={errorCount} gotoTab={gotoTab} />;
+    errorCount={errorCount} gotoTab={gotoTab} gotoSub={gotoSub} />;
   else if (view.tab === 'schedule') content = <ScreenSchedule today={today} checks={checks} setChecks={setChecks} />;
   else if (view.tab === 'memo') content = <ScreenMemo flashState={flashState} setFlashState={setFlashState} />;
   else if (view.tab === 'errors') content = <ScreenErrors errors={errors} setErrors={setErrors}

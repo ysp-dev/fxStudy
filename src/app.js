@@ -165,7 +165,8 @@ function ScreenToday({
   flashKnown,
   flashTotal,
   errorCount,
-  gotoTab
+  gotoTab,
+  gotoSub
 }) {
   const todayItem = MD.SCHEDULE.find(s => s.date === today);
   const next3 = MD.SCHEDULE.filter(s => compareMMDD(s.date, today) > 0).slice(0, 3);
@@ -261,7 +262,7 @@ function ScreenToday({
     }
   }, "\uC678\uC6C0")), /*#__PURE__*/React.createElement("button", {
     className: "stat-tile",
-    onClick: () => gotoTab('more')
+    onClick: () => gotoSub('keypoints')
   }, /*#__PURE__*/React.createElement("div", {
     className: "lbl"
   }, "\uBE48\uCD9C\uD3EC\uC778\uD2B8"), /*#__PURE__*/React.createElement("div", {
@@ -1956,7 +1957,8 @@ function MobileApp() {
     flashKnown: flashStats.known,
     flashTotal: flashStats.total,
     errorCount: errorCount,
-    gotoTab: gotoTab
+    gotoTab: gotoTab,
+    gotoSub: gotoSub
   });else if (view.tab === 'schedule') content = /*#__PURE__*/React.createElement(ScreenSchedule, {
     today: today,
     checks: checks,
