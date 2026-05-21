@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git remote *)",
+      "Bash(ssh -T -p 443 git@ssh.github.com)",
+      "Bash(ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts 2>/dev/null && git remote set-url origin git@ssh.github.com:ysp-dev/fxStudy.git && git push origin main)",
+      "Bash(ssh-keyscan -p 443 ssh.github.com)",
+      "Bash(gh auth *)"
+    ],
+    "additionalDirectories": [
+      "/Users/ys_dev/.ssh"
+    ]
+  }
+}
