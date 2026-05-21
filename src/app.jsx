@@ -491,6 +491,13 @@ function ScreenMemo({ flashState, setFlashState }) {
 function ScreenErrors({ errors, setErrors, repeatChecks, setRepeatChecks }) {
   const [showSheet, setShowSheet] = useState(false);
   const [filterSubj, setFilterSubj] = useState('all');
+
+  useEffect(() => {
+    const screen = document.querySelector('.m-screen');
+    if (!screen) return;
+    screen.style.overflow = showSheet ? 'hidden' : '';
+    return () => { screen.style.overflow = ''; };
+  }, [showSheet]);
   const [draft, setDraft] = useState({ date: '05-22', subj: 1, source: '', question: '', mine: '', correct: '', why: '', rule: '' });
 
   function addError() {
