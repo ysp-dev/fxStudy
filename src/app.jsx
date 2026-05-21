@@ -562,10 +562,15 @@ function ScreenErrors({ errors, setErrors, repeatChecks, setRepeatChecks }) {
               <div className="rev">
                 <span>복습</span>
                 <div className="dots">
-                  {[0,1,2].map(i => (
-                    <div key={i} className={`dot${e.reviews && e.reviews[i] ? ' on' : ''}`}
-                      onClick={() => !String(e.id).startsWith('seed') && toggleReview(e.id, i)} />
-                  ))}
+                  {[0,1,2].map(i => {
+                    const isSeed = String(e.id).startsWith('seed');
+                    return (
+                      <div key={i}
+                        className={`dot${e.reviews && e.reviews[i] ? ' on' : ''}`}
+                        style={{ opacity: isSeed ? 0.25 : 1, cursor: isSeed ? 'default' : 'pointer' }}
+                        onClick={() => !isSeed && toggleReview(e.id, i)} />
+                    );
+                  })}
                 </div>
                 <span style={{ marginLeft:'auto', fontSize:10, color:'var(--ink-4)' }}>당일 · 3일후 · 시험3일전</span>
               </div>

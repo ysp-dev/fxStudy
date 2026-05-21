@@ -874,11 +874,18 @@ function ScreenErrors({
     className: "rev"
   }, /*#__PURE__*/React.createElement("span", null, "\uBCF5\uC2B5"), /*#__PURE__*/React.createElement("div", {
     className: "dots"
-  }, [0, 1, 2].map(i => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: `dot${e.reviews && e.reviews[i] ? ' on' : ''}`,
-    onClick: () => !String(e.id).startsWith('seed') && toggleReview(e.id, i)
-  }))), /*#__PURE__*/React.createElement("span", {
+  }, [0, 1, 2].map(i => {
+    const isSeed = String(e.id).startsWith('seed');
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: `dot${e.reviews && e.reviews[i] ? ' on' : ''}`,
+      style: {
+        opacity: isSeed ? 0.25 : 1,
+        cursor: isSeed ? 'default' : 'pointer'
+      },
+      onClick: () => !isSeed && toggleReview(e.id, i)
+    });
+  })), /*#__PURE__*/React.createElement("span", {
     style: {
       marginLeft: 'auto',
       fontSize: 10,
