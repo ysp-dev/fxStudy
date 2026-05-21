@@ -5,7 +5,7 @@ const LOCAL_ASSETS = [
   BASE + 'index.html',
   BASE + 'src/style.css',
   BASE + 'src/data.js',
-  BASE + 'src/app.jsx',
+  BASE + 'src/app.js',
   BASE + 'manifest.json',
   BASE + 'icons/icon-192.png',
   BASE + 'icons/icon-512.png',
