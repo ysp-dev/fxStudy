@@ -314,7 +314,7 @@ p { margin: 0; }
   background: radial-gradient(circle, rgba(184, 85, 58, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
-.dday-big .num {
+.dday-big > .num {
   font-family: var(--font-serif);
   font-size: 62px;
   font-weight: 700;
@@ -329,7 +329,7 @@ p { margin: 0; }
   text-align: right;
   line-height: 1.5;
 }
-.dday-big .meta strong { color: var(--ink); }
+.dday-big .meta strong { color: var(--ink); font-size: 18px; font-family: var(--font-serif); }
 
 /* Checks row on Today */
 .check-row {
@@ -1148,7 +1148,7 @@ p { margin: 0; }
   background: radial-gradient(circle, rgba(184,85,58,0.14) 0%, transparent 70%);
   pointer-events: none;
 }
-.dday-big .num {
+.dday-big > .num {
   font-size: 64px;
   letter-spacing: -0.04em;
   text-shadow: 0 2px 10px rgba(184,85,58,0.18);
