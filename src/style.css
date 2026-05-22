@@ -1149,9 +1149,10 @@ p { margin: 0; }
   pointer-events: none;
 }
 .dday-big .num {
-  font-size: 72px;
+  font-size: 64px;
   letter-spacing: -0.04em;
   text-shadow: 0 2px 10px rgba(184,85,58,0.18);
+  flex-shrink: 0;
 }
 
 /* --- Progress bar: shimmer animation --- */
